@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WEBscraper</title>
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
+  />
+  <style>
+    .center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+  <body>
+    <section class="hero is-black center block">
+      <div class="hero-body">
+        <p class="title">WEB scraper</p>
+      </div>
+    </section>
+    <div class="box container">
+      <div class="container block center">
+        Please write the name of the product you are looking for.
+      </div>
+      <div class="block center">
+        <form action="/scrape" method="post">
+          <div class="field has-addons">
+            <p class="control">
+              <input
+                class="input"
+                type="search"
+                id="search"
+                name="search"
+                placeholder="Золотые часы"
+              />
+            </p>
+            <p class="control">
+              <button type="submit" class="button">Search</button>
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
