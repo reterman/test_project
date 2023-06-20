@@ -16,7 +16,8 @@ def scrape():
         if name != None:
             name = name.replace(" ", "+")
             print(name)
-            url = "https://www.wildberries.ru/catalog/0/search.aspx?search="+ name;
+            # url = "https://www.wildberries.ru/catalog/0/search.aspx?search="+ name
+            url = "https://www.ozon.ru/search/?text="+name+"&from_global=true"
             dates = get_content_page(url)
         # In the case of rendering a page without getting product data
         return render_template('scrape.html', dates=dates)
