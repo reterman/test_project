@@ -13,7 +13,7 @@ def get_HTML(URL):
     options.add_argument("user-agent=Mozilla/5.0")
     options.add_argument("--disable-blink-features=AutomationControlled")
     options.add_argument('--log-level=3')
-    # options.add_argument("--headless")
+    options.add_argument("--headless")
     driver = webdriver.Chrome(service=service, options=options)
     # pre-setting the necessary settings and further connecting them to simulate the operation and loading of the URL page
     driver.get(URL)
@@ -30,7 +30,7 @@ def get_HTML(URL):
     # to write the received code to a file (not used)
     return html
 
-def get_content_page(url):
+def get_content_page_Ozone(url):
   # with open('page', 'r', encoding='utf-8') as f:
   #       html_file = f.read()
 #   to read from an html code file (not used)
@@ -39,7 +39,7 @@ def get_content_page(url):
   soup = BeautifulSoup(html, 'html.parser')
   # print(soup.prettify())
   products = soup.select('[class*=tile-hover-target]')
-  dates = {}
+  dates = []
   i=0
   for product in products[::2]:
 
@@ -56,7 +56,7 @@ def get_content_page(url):
                   try:
                       rate = float(rate)
                   except ValueError:
-                      rate = ""
+                      rate = 0
                   # print(rate)
 
           # price
@@ -84,13 +84,18 @@ def get_content_page(url):
           continue
       # in case the card has a class with a different name (do not insert an empty value into the dictionary)
 
-      dates[i] = {}
-      dates[i]['price'] = price
-      dates[i]['name'] = name
-      dates[i]['href'] = href
-      dates[i]['rate'] = rate
-      dates[i]['img'] = img
-      i+=1
+      data = {}
+      data['price'] = price
+      data['name'] = name
+      data['href'] = href
+      data['rate'] = rate
+      data['img'] = img
+      data['site']="Ozon"
+      dates.append(data)
+      if len(dates) > 10 :
+          break
+
+  # print(dates)
   return dates
       # print(price, i)
   #     print("-------------")

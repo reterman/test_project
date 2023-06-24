@@ -15,6 +15,16 @@
     }
   </style>
   <body>
+  <script>
+    function validateForm() {
+      var text = document.getElementById("search").value;
+      if (text.trim() === "") {
+        alert("Пожалуйста, введите запрос");
+        return false;
+      }
+      return true;
+    }
+  </script>
     <section class="hero is-black center block">
       <div class="hero-body">
         <p class="title">WEB scraper</p>
@@ -22,10 +32,10 @@
     </section>
     <div class="box container">
       <div class="container block center">
-        Please write the name of the product you are looking for.
+        Please write the name of the product you are looking for:
       </div>
       <div class="block center">
-        <form action="/scrape" method="post">
+        <form action="/scrape" method="post" onsubmit="return validateForm()">
           <div class="field has-addons">
             <p class="control">
               <input

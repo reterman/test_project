@@ -13,6 +13,26 @@
         justify-content: center;
         align-items: center;
       }
+      .text-container{
+        justify-items: center;
+
+        height: 100px;
+      }
+      .text-block {
+        /*height: 100px;*/
+        text-align: center;
+        display: -webkit-box; /* Set the element to use the old flexbox layout */
+        -webkit-line-clamp: 3; /* Limit the number of lines to 3 */
+        -webkit-box-orient: vertical; /* Set the flexbox orientation to vertical */
+        overflow: hidden; /* Hide any overflowing text */
+        text-overflow: ellipsis; /* Add an ellipsis to the end of the text */
+      }
+      .img-styles {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+      }
     </style>
   </head>
   <body>
@@ -21,31 +41,32 @@
         <p class="title">WEB scraper</p>
       </div>
     </section>
-    <div class="box container">
-      <div class="block center">Scraped Data</div>
-      <div class="center">
-        <form action="/" method="get">
-          <button class="button" type="submit">Go to Home page</button>
-        </form>
-      </div>
-    </div>
     <div class="container">
       <div class="columns is-multiline">
-        {% for id in dates.keys() %}
-        <div class="column is-one-third">
+        {% for data in dates %}
+        <div class="column is-one-quarter">
           <div class="card">
-            <div class="card-image">
-              <figure class="image is-4by3">
-                <img src="{{ dates[id]['img'] }}" alt="Product Image" />
+            <div class="card-image center" >
+              <figure class="image center" style="display: flex; align-items: center; margin-top: 3%; justify-content: center;  border-radius: 25px;   width:300px; height: 400px; overflow: hidden;">
+                <img style="  max-width: 90%; height: auto; border-radius: 10px" class="has-ratio" src="{{ data['img'] }}" alt="Product Image" />
               </figure>
             </div>
             <div class="card-content ">
-              <div class="title is-4 center">{{ dates[id]['name'] }}</div>
-              <div class="content is-4 center">{{ dates[id]['price'] }}</div>
-              <div class="content is-4 center">rate - {{ dates[id]['rate'] }}</div>
+
+              <div class="title is-4 center" style="margin-bottom: 0px" >{{ data['price'] }}</div>
+              <div class="text-container center">
+                <div class="content is-4 center text-block">{{ data['name'] }}</div>
+              </div>
+              {% if  data['rate'] == 5 %}
+                <div class="content is-medium  has-text-success-dark center" style="border-radius: 15px; border: 1px solid hsl(141, 71%, 48%)">rate - {{ data['rate'] }}</div>
+              {% elif  data['rate'] >= 4 %}
+                <div class="content is-medium  has-text-warning-dark center" style="border-radius: 15px; border: 1px solid HSL(50, 90%, 50%)">rate - {{ data['rate'] }}</div>
+              {% else %}
+                <div class="content is-medium  has-text-danger-dark center" style="border-radius: 15px; border: 1px solid hsl(348,97%,55%)" >rate - {{ data['rate'] }}</div>
+              {% endif %}
                 <div class="center">
-            <form action="{{ dates[id]['href']}}">
-              <button class="button" type="submit">Follow the link</button>
+            <form action="{{ data['href']}}">
+              <button class="button" type="submit">Follow the link - {{data['site']}}</button>
             </form>
                   </div>
             </div>
@@ -55,5 +76,10 @@
         {% endfor %}
       </div>
     </div>
+      <div class="center" style="margin: 35px;">
+        <form action="/" method="get">
+          <button class="button is-medium"  style=" box-shadow: 0px 0px 10px #ddd " type="submit">Go to Home page</button>
+        </form>
+      </div>
   </body>
 </html>

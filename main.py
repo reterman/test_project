@@ -30,7 +30,7 @@ def get_HTML(URL):
     # to write the received code to a file (not used)
     return html
 
-def get_content_page(url):
+def get_content_page_WildBerries(url):
   # with open('page', 'r', encoding='utf-8') as f:
   #       html_file = f.read()
 #   to read from an html code file (not used)
@@ -38,7 +38,7 @@ def get_content_page(url):
 #   with bs4 we divide the html code and search for the parts we need by class name
   soup = BeautifulSoup(html, 'html.parser')
   products = soup.findAll('div', class_ = "product-card__wrapper")
-  dates = {}
+  dates = []
   for i in range(len(products)):
       if i > 10:
           break
@@ -49,17 +49,25 @@ def get_content_page(url):
       img ="https:" + product.find('img', class_="j-thumbnail").get('src')
       href = product.find('a', class_="product-card__link j-card-link j-open-full-product-card").get('href')
       rate = product.find('span', class_="address-rate-mini address-rate-mini--sm")
+      # print(rate)
     #   get the necessary data from each card
       if price == None or name == None or img == None or href == None or rate == None:
           continue
     #   in case the card has a class with a different name (do not insert an empty value into the dictionary)
-      
-      dates[i] = {}
-      dates[i]['price']=price.text.replace(" ", "")
-      dates[i]['name']=name.text.replace(" / ", '')
-      dates[i]['href']=href
-      dates[i]['rate']=rate.text
-      dates[i]['img']=img
+      try:
+          rate = float(rate.text)
+      except ValueError:
+          rate = 0
+
+      data = {}
+      data['price']=price.text.replace(" ", "")
+      data['name']=name.text.replace(" / ", '')
+      data['href']=href
+      data['rate']=rate
+      data['img']=img
+      data['site']="WildBerries"
+      dates.append(data)
+  # print(dates)
   return dates
 
 # url = "https://www.wildberries.ru/catalog/0/search.aspx?page=1&sort=rate&search=золотые+часы"
