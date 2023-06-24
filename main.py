@@ -22,8 +22,9 @@ def get_HTML(URL):
         coord = "window.scrollTo(0,"+ str(i*600)+");"
         driver.execute_script(coord)
         time.sleep(3)
-    html = driver.page_source
     # gradual loading of the site data so that you can get all the html code
+    html = driver.page_source
+
 
     # with open('pag_2', 'w', encoding='utf-8') as f:
     #     f.write(html)
@@ -35,14 +36,14 @@ def get_content_page_WildBerries(url):
   #       html_file = f.read()
 #   to read from an html code file (not used)
   html = get_HTML(url)
-#   with bs4 we divide the html code and search for the parts we need by class name
+  #with bs4 we divide the html code and search for the parts we need by class name
   soup = BeautifulSoup(html, 'html.parser')
   products = soup.findAll('div', class_ = "product-card__wrapper")
   dates = []
   for i in range(len(products)):
       if i > 10:
           break
-    #   from each site no more than 10 cards
+      #from each site no more than 10 cards
       product = products[i]
       price = product.find('ins', class_="price__lower-price")
       name = product.find('span', class_="product-card__name")
@@ -50,14 +51,15 @@ def get_content_page_WildBerries(url):
       href = product.find('a', class_="product-card__link j-card-link j-open-full-product-card").get('href')
       rate = product.find('span', class_="address-rate-mini address-rate-mini--sm")
       # print(rate)
-    #   get the necessary data from each card
+      #get the necessary data from each card
       if price == None or name == None or img == None or href == None or rate == None:
           continue
-    #   in case the card has a class with a different name (do not insert an empty value into the dictionary)
+      #if it was not possible to find all the necessary data about the product
       try:
           rate = float(rate.text)
       except ValueError:
           rate = 0
+      # checking the correctness of the rating value
 
       data = {}
       data['price']=price.text.replace(" ", "")
@@ -67,7 +69,6 @@ def get_content_page_WildBerries(url):
       data['img']=img
       data['site']="WildBerries"
       dates.append(data)
-  # print(dates)
   return dates
 
 # url = "https://www.wildberries.ru/catalog/0/search.aspx?page=1&sort=rate&search=золотые+часы"

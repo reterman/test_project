@@ -24,6 +24,7 @@ def scrape():
     if request.method == 'POST':
         name = request.form['search']
         if name != None:
+            # checking in case the user needs to refresh the page or return to products already found, without reloading the page
             if 'token' in session:
                 dates = create_dataset(name)
                 cache.set('data', dates)
