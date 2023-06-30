@@ -27,7 +27,7 @@ def scrape():
             # checking in case the user needs to refresh the page or return to products already found, without reloading the page
             if 'token' in session:
                 dates = create_dataset(name)
-                cache.set('data', dates)
+                cache.set('data', dates )
                 session.pop('token', None)
             else:
                 dates = cache.get('data')

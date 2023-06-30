@@ -17,7 +17,7 @@ def get_HTML(URL):
     driver = webdriver.Chrome(service=service, options=options)
     # pre-setting the necessary settings and further connecting them to simulate the operation and loading of the URL page
     driver.get(URL)
-    time.sleep(3)
+    time.sleep(1.5)
     # gradual loading of the site data so that you can get all the html code
     html = driver.page_source
     # with open('pag_2', 'w', encoding='utf-8') as f:
@@ -31,7 +31,7 @@ def get_content_page_Ozone(url):
 #   to read from an html code file (not used)
   html = get_HTML(url)
 #   with bs4 we divide the html code and search for the parts we need by class name
-  soup = BeautifulSoup(html, 'html.parser')
+  soup = BeautifulSoup(html, 'lxml')
   products = soup.select('[class*=tile-hover-target]')
   dates = []
   for product in products[::2]:
@@ -78,8 +78,8 @@ def get_content_page_Ozone(url):
       dates.append(data)
       if len(dates) > 10 :
           break
-
+      # print(data)
   return dates
 
 # url = "https://www.ozon.ru/search/?text=золотые+часы&from_global=true"
-# get_content_page(url)
+# get_content_page_Ozone(url)
