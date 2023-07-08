@@ -5,4 +5,6 @@ The report on the first sprint can be read [here](WEEKLY_REPORT.pdf).
 
 The report on the second sprint can be read [here](WEEKLY_REPORT_2.pdf).
 
-The report on the third sprint can be read [here](WEEKLY_REPORT_3.pdf).
+The report on the third sprint can be read [here](WEEKLY_REPORT_3.pdf).  
+
+The report on the fourth sprint can be read [here](WEEKLY_REPORT_4.pdf). 
