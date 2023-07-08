@@ -23,52 +23,48 @@ def get_HTML(URL):
     # using the method of explicit loading of the product page
     wait = WebDriverWait(driver, 10)
     wait.until(EC.presence_of_element_located((By.TAG_NAME, "body")))
-    wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, ".subtitle-item")))
+    wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, ".digi-product")))
+    wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "div.digi-main-search-title")))
     html = driver.page_source
-
 
     # with open('pag_2', 'w', encoding='utf-8') as f:
     #     f.write(html)
     # to write the received code to a file (not used)
     return html
 
-def get_content_page_KazanExpress(url):
+def get_content_page_CDEK(url):
   # with open('page', 'r', encoding='utf-8') as f:
   #       html_file = f.read()
-#   to read from an html code file (not used)
+  # to read from an html code file (not used)
   html = get_HTML(url)
-  #with bs4 we divide the html code and search for the parts we need by class name
+  # with bs4 we divide the html code and search for the parts we need by class name
   soup = BeautifulSoup(html, 'lxml')
-  products = soup.select('div[class^="col-mbs-12 col-mbm-6 col-xs-4 col-md-3 product-card"]')
+  products = soup.findAll('div', class_ = "digi-product")
   dates = []
   for i in range(len(products)):
-      if i > 10:
+      if i > 7:
           break
-
-      #from each site no more than 10 cards
+      # from each site no more than 8 cards
       product = products[i]
-      price = product.find('span', class_="currency product-card-price slightly medium")
-      name = product.find('a', class_="subtitle-item")
-      img = product.find('img', class_="main-card-icon-and-classname-collision-made-to-minimum").get('src')
-      href ="https://kazanexpress.ru"+ product.find('a', class_="subtitle-item").get('href')
-      rate = product.find('span', attrs={'data-test-id': 'text__rating'})
-      #get the necessary data from each card
-      # if price == None or name == None or img == None or href == None or rate == None:
-      #     continue
+      price = product.find('span', class_="digi-product-price-num")
+      name = product.find('a', class_="digi-product__label")
+      img =product.find('img', class_="digi-product__image").get('src')
+      href = product.find('a', class_="digi-product__label").get('href')
+      rate = 0
+      # get the necessary data from each card
+      if price == None or name == None or img == None or href == None or rate == None:
+          continue
       #if it was not possible to find all the necessary data about the product
-      try:
-          rate = float(rate.text)
-      except Exception:
-          rate = 0
-      # checking the correctness of the rating value
 
       data = {}
-      data['price']=price.text.replace(" ", "")
-      data['name']=name.text.replace("  ", '').replace('\n', '')
-      data['href']=href
+      data['price']=price.text.replace(" ", "").replace('\n',' ').replace('\xa0',' ')
+      data['name']=name.text.replace("  ", '').replace('\n','')
+      data['href']="https://cdek.shopping"+href
       data['rate']=rate
       data['img']=img
-      data['site']="KazanExpress"
+      data['site']="CDEKmarket"
       dates.append(data)
   return dates
 
+# url = "https://cdek.shopping/?digiSearch=true&term=электронные%20золотые%20часы&params=%7Csort%3DDEFAULT"
+# get_content_page_CDEK(url)

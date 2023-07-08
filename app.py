@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, session
 import requests
 from Ozone_Market import *
 from concurrent.futures import ThreadPoolExecutor
-from main import *
+from WildBerries import *
 from create_data import *
 import secrets
 from flask_caching import Cache

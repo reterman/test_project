@@ -41,45 +41,56 @@
         <p class="title"><a href="/">WEB scraper</a></p>
       </div>
     </section>
-    <div class="center" style="margin-bottom: 20px">
+    <div class="container">
+    <div class="columns is-multiline is-mobile is-centered " style="margin-bottom: 20px">
+      <div class="column  is-three-quarters-mobile is-two-thirds-tablet is-half-desktop is-one-third-widescreen is-one-quarter-fullhd center">
       <button
         class="button is-outlined"
         id="costDownButton"
-        style="margin: 10px; width: 10%"
+        style="margin: 10px"
         onclick="sortDownDates()"
       >
         decreasing price
       </button>
+      </div>
+      <div class="column  is-three-quarters-mobile is-two-thirds-tablet is-half-desktop is-one-third-widescreen is-one-quarter-fullhd center">
       <button
         class="button is-outlined"
         id="costUpButton"
-        style="margin: 10px; width: 10%"
+        style="margin: 10px;"
         onclick="sortUpDates()"
       >
         increasing price
       </button>
+      </div>
+      <div class="column  is-three-quarters-mobile is-two-thirds-tablet is-half-desktop is-one-third-widescreen is-one-quarter-fullhd center">
       <button
         class="button is-outlined"
         id="rateDownButton"
-        style="margin: 10px; width: 10%"
+        style="margin: 10px;"
         onclick="sortRateDownDates()"
       >
         decreasing rating
       </button>
+      </div>
+      <div class="column  is-three-quarters-mobile is-two-thirds-tablet is-half-desktop is-one-third-widescreen is-one-quarter-fullhd center">
       <button
         class="button is-outlined"
         id="rateUpButton"
-        style="margin: 10px; width: 10%"
+        style="margin: 10px;"
         onclick="sortRateUpDates()"
       >
         increasing rating
       </button>
+      </div>
+    </div>
     </div>
 
+
     <div class="container">
-      <div class="columns is-multiline" id="dates">
+      <div class="columns is-multiline  is-centered" id="dates">
         {% for data in dates %}
-        <div class="column is-one-quarter">
+        <div class="column  is-three-quarters-mobile is-two-thirds-tablet is-half-desktop is-one-third-widescreen is-one-quarter-fullhd">
           <div class="card">
             <div class="card-image center">
               <figure
@@ -108,7 +119,7 @@
                 {{ data['price'] }}
               </div>
               <div class="text-container center">
-                <div class="content is-4 center text-block">
+                <div class="content is-4 center text-block"  style="  overflow: hidden; text-overflow: ellipsis;   white-space: normal; word-wrap: break-word; max-width: 200px; ">
                   {{ data['name'] }}
                 </div>
               </div>
@@ -120,14 +131,21 @@
                   border: 1px solid hsl(141, 71%, 48%);
                 "
               >
-                rate - {{ data['rate'] }}
+                rating - {{ data['rate'] }}
               </div>
               {% elif data['rate'] >= 4 %}
               <div
                 class="content is-medium has-text-warning-dark center"
                 style="border-radius: 15px; border: 1px solid HSL(50, 90%, 50%)"
               >
-                rate - {{ data['rate'] }}
+                rating - {{ data['rate'] }}
+              </div>
+              {% elif data['rate'] == 0 %}
+              <div
+                class="content is-medium has-text-dark center"
+                style="border-radius: 15px; border: 1px solid hsl(0,0%,59%)"
+              >
+               no rating - 0
               </div>
               {% else %}
               <div
@@ -137,7 +155,7 @@
                   border: 1px solid hsl(348, 97%, 55%);
                 "
               >
-                rate - {{ data['rate'] }}
+                rating - {{ data['rate'] }}
               </div>
               {% endif %}
               <div class="center">
