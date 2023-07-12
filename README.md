@@ -1,5 +1,5 @@
 # test_project
-All my code was created and tested over 3 sprints of a week each.
+All my code was created and tested in a month and a half.  
 
 The report on the first sprint can be read [here](Reports/WEEKLY_REPORT.pdf). 
 
